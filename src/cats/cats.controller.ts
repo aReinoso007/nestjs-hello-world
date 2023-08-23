@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Header, HttpCode, Post } from '@nestjs/common';
 
 @Controller('cats')
 export class CatsController {
@@ -8,7 +8,19 @@ export class CatsController {
   }
 
   @Post()
+  @HttpCode(204)
+  @Header('Cache-Control', 'none')
   create(): string {
     return 'this action adds a new cat';
+  }
+
+  @Get('ab*cd')
+  findAllWildCard(): string {
+    return 'this route uses a wildcard';
+  }
+
+  @Get('/hola')
+  hola(): string {
+    return 'hola bebe';
   }
 }
